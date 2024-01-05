@@ -31,7 +31,6 @@ jobs:
         env:
           NODE_VERSION: 18
         with:
-          api_build_command: "node --version"
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_NICE_OCEAN_08D026010 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
@@ -40,6 +39,7 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
+          api_build_command: "ls -lath"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
