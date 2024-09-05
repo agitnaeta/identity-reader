@@ -20,6 +20,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
     let location=""; 
     const targetPath = path.join(process.cwd(), `/public/uploads/`);
     console.log(targetPath);
+    console.log(req.headers['content-type']);
    try{
 
      /* Get files using formidable */
