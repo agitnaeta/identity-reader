@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { promises as fs } from "fs";
 import path from "path";
-import formidable, { File, IncomingForm } from 'formidable';
+import  { File, IncomingForm } from 'formidable';
 import read from '@/app/read';
 
 
@@ -43,9 +43,11 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
 
         /* Create directory for uploads */
         const targetPath = path.join(process.cwd(), `/public/uploads/`);
+        console.log(targetPath)
         try {
             await fs.access(targetPath);
-        } catch (e) {
+        } catch (e:any) {
+            console.log(e.message)
             await fs.mkdir(targetPath);
         }
 
@@ -54,7 +56,11 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
             const tempPath = file[1].filepath;
             const random = new Date().getTime();
             location = targetPath + random +file[1].originalFilename;
-            await fs.rename(tempPath, location);
+            try{
+                await fs.rename(tempPath, location);
+            }catch(e:any){
+                console.log(e.message)
+            }
             read(location,res)
         }
     }
