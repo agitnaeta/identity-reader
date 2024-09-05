@@ -42,7 +42,6 @@ async function cleanUpGemini(text:string,res:NextApiResponse)
     }
 }
 
-
 async function cleanUp(text:string,res:NextApiResponse) {
     const openAI = new OpenAI({
         apiKey:process.env.OPEN_AI_KEY
@@ -67,9 +66,6 @@ async function cleanUp(text:string,res:NextApiResponse) {
     }
       
 }
-
-
-
 
 async function cleanUpLama(text:string,res:NextApiResponse) {
     const url = process.env.AI_URL+"/api/generate"; 

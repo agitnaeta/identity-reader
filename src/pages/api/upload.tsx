@@ -15,8 +15,7 @@ type ProcessedFiles = Array<[string, File]>;
 
 const upload = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    let status = 200,
-        resultBody = { status: 'ok', message: 'Files were uploaded successfully' };
+    let resultBody = { status: 'ok', message: 'Files were uploaded successfully' };
     let location=""; 
     const targetPath = path.join(process.cwd(), `/public/uploads/`);
     console.log(targetPath);
