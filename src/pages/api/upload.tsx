@@ -68,7 +68,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
         resultBody = {
             status: 'fail', message: 'Upload error'
         }
-        res.status(500).json(resultBody)
+        return res.status(500).json(resultBody)
     }
 }
 
