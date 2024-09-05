@@ -23,18 +23,27 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
 
      /* Get files using formidable */
      const files = await new Promise<ProcessedFiles | undefined>((resolve, reject) => {
+       
         const form = new IncomingForm();
         const files: ProcessedFiles = [];
+       
         form.on('file', function (field, file) {
             files.push([field, file]);
         })
-        form.on('end', () => resolve(files));
-        form.on('error', err => reject(err));
+        form.on('end', () => {
+            console.log("uploaded")
+            console.log(files)
+            resolve(files)
+        });
+        form.on('error', err => {
+            console.log(`rejected ${err}`)
+            reject(err)
+        });
         form.parse(req, () => {
             //
         });
     });
-    
+
     if (files?.length) {
 
         /* Create directory for uploads */
@@ -67,7 +76,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(500).json(resultBody)
     }
    }catch(e:any){
-        console.log(e.message)
+    return res.status(500).json(e.message)
    }
 
     
