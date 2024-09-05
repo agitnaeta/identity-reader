@@ -27,12 +27,19 @@ async function load(res:NextApiResponse, urlImage: string) {
 }
 async function cleanUpGemini(text:string,res:NextApiResponse)
 {
-    const key: string  = process.env.GEMINI_AI_KEY ?? "";
-    const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" ,  generationConfig: { responseMimeType: "application/json" },});
-    const prompt = promt(text)
-    const result = await model.generateContent(prompt);
-    return res.status(200).json(JSON.parse(result.response.text()))
+    try{
+        const key: string  = process.env.GEMINI_AI_KEY ?? "";
+        const genAI = new GoogleGenerativeAI(key);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" ,  generationConfig: { responseMimeType: "application/json" },});
+        const prompt = promt(text)
+        const result = await model.generateContent(prompt);
+        return res.status(200).json(JSON.parse(result.response.text()))
+
+    }catch(error:any){
+        return res.status(500).json({
+            "info": "our source limited for now, if you found this helpfull you can donate https://ko-fi.com/agitnaeta"
+        })
+    }
 }
 
 
