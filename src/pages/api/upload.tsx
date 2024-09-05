@@ -28,7 +28,9 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
        
         const form = new IncomingForm({
             uploadDir: targetPath, // Set a directory to store uploaded files
-            keepExtensions: true,    // Keep file extensions
+            keepExtensions: true, 
+            maxFileSize: 100 * 1024 * 1024,  // Adjust as needed
+            createDirsFromUploads: true,  
         });
         const files: ProcessedFiles = [];
        
@@ -47,9 +49,16 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
             console.log(`rejected ${err}`)
             reject(err)
         });
-        form.parse(req, () => {
-            //
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                console.log('Error parsing form:', err);
+                res.end('Error parsing form');
+                return;
+            }
+            console.log('Form parsed:', fields, files);
+            res.end('Form parsed successfully');
         });
+        
     });
 
     if (files?.length) {
