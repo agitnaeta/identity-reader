@@ -56,7 +56,6 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
                 return;
             }
             console.log('Form parsed:', fields, files);
-            res.end('Form parsed successfully');
         });
         
     });
