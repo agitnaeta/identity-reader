@@ -19,8 +19,10 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
         resultBody = { status: 'ok', message: 'Files were uploaded successfully' };
     let location=""; 
 
-    /* Get files using formidable */
-    const files = await new Promise<ProcessedFiles | undefined>((resolve, reject) => {
+   try{
+
+     /* Get files using formidable */
+     const files = await new Promise<ProcessedFiles | undefined>((resolve, reject) => {
         const form = new IncomingForm();
         const files: ProcessedFiles = [];
         form.on('file', function (field, file) {
@@ -31,14 +33,8 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
         form.parse(req, () => {
             //
         });
-    }).catch(e => {
-        console.log(e);
-        status = 500;
-        resultBody = {
-            status: 'fail', message: 'Upload error'
-        }
     });
-
+    
     if (files?.length) {
 
         /* Create directory for uploads */
@@ -70,6 +66,11 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
         }
         return res.status(500).json(resultBody)
     }
+   }catch(e:any){
+        console.log(e.message)
+   }
+
+    
 }
 
 export default upload;
