@@ -18,18 +18,25 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
     let status = 200,
         resultBody = { status: 'ok', message: 'Files were uploaded successfully' };
     let location=""; 
-
+    const targetPath = path.join(process.cwd(), `/public/uploads/`);
+    console.log(targetPath);
    try{
 
      /* Get files using formidable */
      const files = await new Promise<ProcessedFiles | undefined>((resolve, reject) => {
        
-        const form = new IncomingForm();
+        const form = new IncomingForm({
+            uploadDir: targetPath, // Set a directory to store uploaded files
+            keepExtensions: true,    // Keep file extensions
+        });
         const files: ProcessedFiles = [];
        
         form.on('file', function (field, file) {
+            console.log("Field:", field);   // Check field name
+            console.log("File:", file);     // Check file object
             files.push([field, file]);
-        })
+        });
+
         form.on('end', () => {
             console.log("uploaded")
             console.log(files)
@@ -47,7 +54,6 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
     if (files?.length) {
 
         /* Create directory for uploads */
-        const targetPath = path.join(process.cwd(), `/public/uploads/`);
         console.log(targetPath)
         try {
             await fs.access(targetPath);
