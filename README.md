@@ -10,6 +10,15 @@ Before you get started, make sure you have:
 - Node.js v20 or higher installed.
 - A `.env` file set up based on the template provided in `.env.example`.
 
+## API Keys
+
+To use Identity Reader effectively, you'll need to obtain API keys for various services:
+
+- **Gemini API Key**: Get your key [here](https://aistudio.google.com/app/apikey).
+- **OpenAI API Key**: Obtain your key [here](https://platform.openai.com/account/api-keys).
+- **Ollama (Optional)**: Install Ollama if needed [here](https://ollama.com/download).
+
+
 ## Getting Started
 
 Follow these simple steps to get up and running:
