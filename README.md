@@ -36,7 +36,3 @@ To see how Identity Reader handles requests, check out the [Postman documentatio
 If you find Identity Reader useful and want to support my work, consider buying me a coffee! Your support helps me continue developing and improving this project.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/agitnaeta)
-
----
-
-Feel free to tweak any part of it to better fit your project or style!
